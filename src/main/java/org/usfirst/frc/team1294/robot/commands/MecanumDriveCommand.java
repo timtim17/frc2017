@@ -50,6 +50,7 @@ public class MecanumDriveCommand extends Command {
                  joystick.getX(GenericHID.Hand.kRight),0);
       System.out.println("ROBOT ORIENTED");
     }
+    Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),0,0,0);
   }
 
   @Override
