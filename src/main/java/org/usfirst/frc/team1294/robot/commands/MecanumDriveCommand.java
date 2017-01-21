@@ -42,12 +42,12 @@ public class MecanumDriveCommand extends Command {
               joystick.getY(GenericHID.Hand.kLeft),
               joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),
               Robot.driveSubsystem.getAngle());
-      Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft), 0,0,0);
       System.out.println("FIELD ORIENTED");
     } else {
       // otherwise use the right analog stick for robot oriented
-      Robot.driveSubsystem.arcadeDrive(joystick.getY(GenericHID.Hand.kRight), joystick.getX(GenericHID.Hand.kRight));
-      Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft), 0, 0, 0);
+    	 Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),
+                 joystick.getY(GenericHID.Hand.kRight),
+                 joystick.getX(GenericHID.Hand.kRight),0);
       System.out.println("ROBOT ORIENTED");
     }
   }
