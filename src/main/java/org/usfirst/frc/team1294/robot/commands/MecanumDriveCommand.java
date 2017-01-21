@@ -37,21 +37,23 @@ public class MecanumDriveCommand extends Command {
     double absYR = Math.abs(joystick.getY(GenericHID.Hand.kRight));
     absYR = absYR < DEADZONE ? 0 : absYR;
     if (absXL > absXR
-            || abxYL > absYR) {
+            || abxYL > absYR) {	
       Robot.driveSubsystem.mecanumDrive(joystick.getX(GenericHID.Hand.kLeft),
               joystick.getY(GenericHID.Hand.kLeft),
               0,
               Robot.driveSubsystem.getAngle());
       System.out.println("FIELD ORIENTED");
-    } else {
+    } else if(absXL < absXR
+            || abxYL < absYR){
       // otherwise use the right analog stick for robot oriented
     	 Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),
                  joystick.getY(GenericHID.Hand.kRight),
                  joystick.getX(GenericHID.Hand.kRight),0);
       System.out.println("ROBOT ORIENTED");
-    }
-    Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),0,0,0);
-  }
+    } else{
+    	Robot.driveSubsystem.mecanumDrive(joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft),0,0,0);
+	    }
+	  }
 
   @Override
   protected boolean isFinished() {
