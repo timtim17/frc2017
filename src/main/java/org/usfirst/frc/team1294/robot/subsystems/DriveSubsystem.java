@@ -47,6 +47,9 @@ public class DriveSubsystem extends Subsystem {
     System.out.println(angle);
     return angle;
   }
+  public void arcadeDrive(double speed, double rotation) {
+	  robotDrive.arcadeDrive(speed, rotation);
+	}
 
 
   public void resetGyro() {
