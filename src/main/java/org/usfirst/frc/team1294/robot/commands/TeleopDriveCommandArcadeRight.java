@@ -9,6 +9,11 @@ import org.usfirst.frc.team1294.robot.Robot;
  * Created by jxlewis on 1/21/17.
  */
 public class TeleopDriveCommandArcadeRight extends Command {
+
+  public TeleopDriveCommandArcadeRight() {
+    requires(Robot.driveSubsystem);
+  }
+
   @Override
   protected boolean isFinished() {
     return false;
