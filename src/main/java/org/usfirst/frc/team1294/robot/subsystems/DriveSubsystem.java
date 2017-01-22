@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team1294.robot.RobotMap;
 import org.usfirst.frc.team1294.robot.commands.MecanumDriveCommand;
+import org.usfirst.frc.team1294.robot.commands.TeleopDriveCommandArcadeRight;
 
 /**
  * @author Austin Jenchi (timtim17)
@@ -46,7 +47,7 @@ public class DriveSubsystem extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    setDefaultCommand(new MecanumDriveCommand());
+    setDefaultCommand(new TeleopDriveCommandArcadeRight());
   }
 
   public void setCommandedStrafeRate(double output) {
