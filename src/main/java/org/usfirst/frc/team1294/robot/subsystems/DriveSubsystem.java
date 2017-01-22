@@ -4,11 +4,9 @@ import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc.team1294.robot.RobotMap;
-import org.usfirst.frc.team1294.robot.commands.MecanumDriveCommand;
-import org.usfirst.frc.team1294.robot.commands.TeleopDriveCommandArcadeRight;
+import org.usfirst.frc.team1294.robot.commands.TeleopDriveCommandRobotLeftFieldRight;
 
 /**
  * @author Austin Jenchi (timtim17)
@@ -47,7 +45,7 @@ public class DriveSubsystem extends Subsystem {
 
   @Override
   protected void initDefaultCommand() {
-    setDefaultCommand(new TeleopDriveCommandArcadeRight());
+    setDefaultCommand(new TeleopDriveCommandRobotLeftFieldRight());
   }
 
   public void setCommandedStrafeRate(double output) {
