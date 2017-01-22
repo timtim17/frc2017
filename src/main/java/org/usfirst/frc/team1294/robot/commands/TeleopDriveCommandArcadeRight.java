@@ -19,7 +19,7 @@ public class TeleopDriveCommandArcadeRight extends Command {
     XboxController joystick = Robot.oi.getJoystick();
     double commandedX = joystick.getTriggerAxis(GenericHID.Hand.kRight) - joystick.getTriggerAxis(GenericHID.Hand.kLeft);
     double commandedY = joystick.getY(GenericHID.Hand.kRight);
-    double commandedTurn = joystick.getY(GenericHID.Hand.kRight);
+    double commandedTurn = joystick.getX(GenericHID.Hand.kRight);
     Robot.driveSubsystem.mecanumDrive(commandedX, commandedY, commandedTurn, 0);
   }
 }
