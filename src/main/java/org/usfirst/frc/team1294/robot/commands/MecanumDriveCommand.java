@@ -39,7 +39,7 @@ public class MecanumDriveCommand extends Command {
     if (absXL > absXR
             || abxYL > absYR) {	
       Robot.driveSubsystem.mecanumDrive(joystick.getX(GenericHID.Hand.kLeft),
-              joystick.getY(GenericHID.Hand.kLeft),
+              joystick.getY(GenericHID.Hand.kLeft), 
               0,
               Robot.driveSubsystem.getAngle());
       System.out.println("FIELD ORIENTED");
