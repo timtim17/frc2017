@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team1294.robot.commands.*;
 import org.usfirst.frc.team1294.robot.subsystems.ClimbingSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team1294.robot.subsystems.CameraSubsystem;
 import org.usfirst.frc.team1294.robot.subsystems.FuelSubsystem;
+import org.usfirst.frc.team1294.robot.subsystems.PneumaticGearSubsystem;
+import org.usfirst.frc.team1294.robot.subsystems.SpatialAwarenessSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,9 +25,10 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static DriveSubsystem driveSubsystem;
-	public static CameraSubsystem cameraSubsystem;
+	public static SpatialAwarenessSubsystem spatialAwarenessSubsystem;
     public static ClimbingSubsystem climbingSubsystem;
     public static FuelSubsystem fuelSubsystem;
+    public static PneumaticGearSubsystem pneumaticGearSubsystem;
 
 
 	Command autonomousCommand;
@@ -40,22 +41,35 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// THESE MUST BE INITIALIZED FIRST
-		oi = new OI();
 		driveSubsystem = new DriveSubsystem();
-		cameraSubsystem = new CameraSubsystem();
+		spatialAwarenessSubsystem = new SpatialAwarenessSubsystem();
         climbingSubsystem = new ClimbingSubsystem();
         fuelSubsystem = new FuelSubsystem();
+        pneumaticGearSubsystem = new PneumaticGearSubsystem();
+		oi = new OI();
 
-		chooser.addDefault("Auto Gear Center", new AutoGearCenter());
-		chooser.addObject("Auto Gear Left", new AutoGearLeft());
-		chooser.addObject("Auto Gear Right", new AutoGearRight());
+		chooser.addDefault("Auto Gear Center", new MoveFromStartToLiftCenter());
+		chooser.addObject("Auto Gear Left", new MoveFromStartToLiftLeft());
+		chooser.addObject("Auto Gear Right", new MoveFromStartToLiftRight());
 		SmartDashboard.putData("Auto mode", chooser);
 
-		SmartDashboard.putData(new MecanumDriveCommand());
-		SmartDashboard.putData(new DriveMotorCommand());
+		SmartDashboard.putData(new TestMotor(TestMotor.Motor.DRIVEBASE_LEFT_FRONT));
+		SmartDashboard.putData(new TestMotor(TestMotor.Motor.DRIVEBASE_LEFT_REAR));
+		SmartDashboard.putData(new TestMotor(TestMotor.Motor.DRIVEBASE_RIGHT_FRONT));
+		SmartDashboard.putData(new TestMotor(TestMotor.Motor.DRIVEBASE_RIGHT_REAR));
+
 		SmartDashboard.putData(new ResetGyroCommand());
-        SmartDashboard.putData(new DriveBaseBreakInCommand());
-		SmartDashboard.putData(new DoGearCameraImageProcessingCommand());
+
+//		SmartDashboard.putData(new TestDriveBaseBreakInCommand());
+
+//		SmartDashboard.putData(new DeliverGearCommand());
+
+
+		SmartDashboard.putData(Scheduler.getInstance());
+//		SmartDashboard.putData(driveSubsystem);
+//		SmartDashboard.putData(spatialAwarenessSubsystem);
+//		SmartDashboard.putData(climbingSubsystem);
+//		SmartDashboard.putData(fuelSubsystem);
 	}
 
 	/**
@@ -123,6 +137,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Heading", spatialAwarenessSubsystem.getHeading());
+		SmartDashboard.putNumber("VelocityZ", spatialAwarenessSubsystem.getRate());
+		SmartDashboard.putNumber("getEncoderX", driveSubsystem.getEncoderX());
+		SmartDashboard.putNumber("getEncoderY", driveSubsystem.getEncoderY());
+		SmartDashboard.putNumber("UltrasonicLeft", spatialAwarenessSubsystem.getLeftUltrasonicDistance());
+    SmartDashboard.putNumber("UltrasonicRight", spatialAwarenessSubsystem.getRightUltrasonicDistance());
+    SmartDashboard.putNumber("UltrasonicAverage", spatialAwarenessSubsystem.getAverageUltrasonicDistance());
+    SmartDashboard.putNumber("Right Back Talon", driveSubsystem.rightRearTalon.getOutputVoltage());
+    SmartDashboard.putNumber("Left Back Talon", driveSubsystem.leftRearTalon.getOutputVoltage());
+    SmartDashboard.putNumber("Right Front Talon", driveSubsystem.rightFrontTalon.getOutputVoltage());
+    SmartDashboard.putNumber("Left Front Talon", driveSubsystem.leftFrontTalon.getOutputVoltage());
+
 		Scheduler.getInstance().run();
 	}
 
