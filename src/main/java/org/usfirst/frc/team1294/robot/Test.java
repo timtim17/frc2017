@@ -6,6 +6,11 @@ public class Test {
   {
     System.out.println (i);
   }
+    
+    while (true) {}
+    
+    int test = 0;
+    switch (test) {case 1: System.out.println; break;}
   }
 }
 
