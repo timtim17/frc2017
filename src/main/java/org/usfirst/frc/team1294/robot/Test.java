@@ -10,7 +10,7 @@ public class Test {
     while (true) {}
     
     int test = 0;
-    switch (test) {case 1: System.out.println; break;}
+    switch (test) {case 1: System.out.println(); break;}
   }
 }
 
